@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %>
+    <div id="cluster-map"></div>    
+    <h1 class="mb-3">All Lodges !!!</h1>
+        <% for(let i = 0; i < lodges.length; i++) { %>
+            <div class="card mb-3">
+                <div class="row">
+                    <div class="col md-4">
+                        <% if(lodges[i].images.length) { %> 
+                        <img class="img-fluid" src="<%=lodges[i].images[0].url%>" alt="">
+                        <% } else { %>
+                            <img class="img-fluid" src="https://res.cloudinary.com/ravikjha7/image/upload/v1657630473/cld-sample-5.jpg" alt="">
+                            <% } %>  
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= lodges[i].title %></h5>
+                            <p class="card-text"><%= lodges[i].description %></p>
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    <%= lodges[i].location %>
+                                </small>
+                            </p>
+                            <a href="/lodges/<%=lodges[i]._id%>" class="btn btn-primary">View <%= lodges[i].title %></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+
+    <h3><a href="/lodges/new">Add New Lodge</a></h3>
+
+    <script>
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+        const lodges = {features : <%- JSON.stringify(lodges) %>};
+      </script>
+
+    <script src="/js/clusterMap.js"></script>
